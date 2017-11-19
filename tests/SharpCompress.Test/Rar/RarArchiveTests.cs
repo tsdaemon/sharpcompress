@@ -167,7 +167,7 @@ namespace SharpCompress.Test.Rar
         [Fact]
         public void Rar_Solid_ArchiveStreamRead()
         {
-            Assert.Throws<InvalidFormatException>(() => ArchiveStreamRead("Rar.solid.rar"));
+            Assert.Throws<InvalidFormatException>(() => ArchiveStreamRead("Android.rar"));
         }
 
         [Fact]
@@ -213,6 +213,12 @@ namespace SharpCompress.Test.Rar
         public void Rar_ArchiveFileRead()
         {
             ArchiveFileRead("Rar.rar");
+        }
+        
+        [Fact]
+        public void Rar5_ArchiveFileRead()
+        {
+            ArchiveFileRead("Rar5.rar");
         }
 
         [Fact]

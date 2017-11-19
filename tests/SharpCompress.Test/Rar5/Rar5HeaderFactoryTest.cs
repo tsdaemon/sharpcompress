@@ -4,16 +4,16 @@ using SharpCompress.IO;
 using SharpCompress.Readers;
 using Xunit;
 
-namespace SharpCompress.Test.Rar
+namespace SharpCompress.Test.Rar5
 {
     /// <summary>
     /// Summary description for RarFactoryReaderTest
     /// </summary>
-    public class RarHeaderFactoryTest : TestBase
+    public class Rar5HeaderFactoryTest : TestBase
     {
         private readonly RarHeaderFactory rarHeaderFactory;
         
-        public RarHeaderFactoryTest()
+        public Rar5HeaderFactoryTest()
         {
             ResetScratch();
             rarHeaderFactory = new RarHeaderFactory(StreamingMode.Seekable, new ReaderOptions()

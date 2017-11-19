@@ -2,6 +2,7 @@
 using System.IO;
 using SharpCompress.Archives.GZip;
 using SharpCompress.Archives.Rar;
+using SharpCompress.Archives.Rar5;
 using SharpCompress.Archives.SevenZip;
 using SharpCompress.Archives.Tar;
 using SharpCompress.Archives.Zip;
@@ -128,6 +129,12 @@ namespace SharpCompress.Archives
                 {
                    stream.Dispose();
                    return RarArchive.Open(fileInfo, options);
+                }
+                stream.Seek(0, SeekOrigin.Begin);
+                if (Rar5Archive.IsRar5File(stream, options))
+                {
+                    stream.Dispose();
+                    return Rar5Archive.Open(fileInfo, options);
                 }
                 stream.Seek(0, SeekOrigin.Begin);
                 if (TarArchive.IsTarFile(stream))

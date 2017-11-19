@@ -8,6 +8,7 @@
         PPMd,
         Deflate,
         Rar,
+        Rar5,
         LZMA,
         BCJ,
         BCJ2,
