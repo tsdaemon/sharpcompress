@@ -25,7 +25,4 @@
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netstandard1.0' ">
     <DefineConstants>$(DefineConstants);NO_FILE;NO_CRYPTO;SILVERLIGHT</DefineConstants>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="Common\Rar5\Header" />
-  </ItemGroup>
 </Project>

@@ -230,6 +230,14 @@ namespace SharpCompress
             return DosDateToDateTime((UInt32)iTime);
         }
 
+        public static DateTime UnixTimeToDateTime(UInt32 iTime)
+        {
+            // Unix timestamp is seconds past epoch
+            DateTime dtDateTime = new DateTime(1970,1,1,0,0,0,0, DateTimeKind.Utc);
+            dtDateTime = dtDateTime.AddSeconds(iTime).ToLocalTime();
+            return dtDateTime;
+        }
+
         public static long TransferTo(this Stream source, Stream destination)
         {
             byte[] array = GetTransferByteArray();

@@ -50,7 +50,7 @@ namespace SharpCompress.IO
             var bytes = base.ReadBytes(count);
             if (bytes.Length != count)
             {
-                throw new EndOfStreamException(string.Format("Could not read the requested amount of bytes.  End of stream reached. Requested: {0} Read: {1}", count, bytes.Length));
+                throw new EndOfStreamException($"Could not read the requested amount of bytes. End of stream reached. Requested: {count} Read: {bytes.Length}");
             }
             return bytes;
         }
@@ -120,6 +120,31 @@ namespace SharpCompress.IO
         public override ulong ReadUInt64()
         {
             return DataConverter.LittleEndian.GetUInt64(ReadBytes(8), 0);
+        }
+        
+        public Int64 ReadVInt()
+        {
+            // https://www.rarlab.com/technote.htm#dtypes
+            // vint - variable length integer. Can include one or more bytes, where lower 7 bits of every byte contain 
+            // integer data and highest bit in every byte is the continuation flag. 
+            // If highest bit is 0, this is the last byte in sequence. So first byte contains 
+            // 7 least significant bits of integer and continuation flag. 
+            // Second byte, if present, contains next 7 bits and so on.
+            // Currently RAR format uses vint to store up to 64 bit integers, 
+            // resulting in 10 bytes maximum. This value may be increased 
+            // in the future if necessary for some reason.
+            Int64 result = 0;
+            for (var i = 0; i < 10; i++)
+            {
+                var current = ReadByte();
+                var value = current & 0x7F; // extract first seven bits 
+                var shiftedValue = ((Int64)value) << (7 * i); // shift bits on their position
+                result += shiftedValue;
+                var finish = (current & 0x80) == 0;
+                if (finish)
+                    break;
+            }
+            return result;
         }
     }
 }
